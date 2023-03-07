@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { utils } from "./utils";
 
 export const Form = ({ addTask }) => {
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({ type: "entry" });
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
 
     setFormData({
       ...formData,
@@ -14,7 +16,8 @@ export const Form = ({ addTask }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    addTask(formData);
+    const id = utils(6);
+    addTask({ ...formData, id });
   };
 
   return (
@@ -22,12 +25,12 @@ export const Form = ({ addTask }) => {
       <div class="row mt-3">
         <div class="col-md-6">
           <input
+            onChange={handleOnChange}
             type="text"
             name="task"
             class="form-control task-input"
             required
             placeholder="Enter a task"
-            onChange={handleOnChange}
           />
         </div>
 
